@@ -4,15 +4,15 @@ import { View, Text, SafeAreaView } from 'react-native'
 
 import nachos from '../data/nachos'
 export default () => {
+    console.log('Hello');
     return (
         <SafeAreaView>
             {nachos.map((item)=>{
 
-                return <Text>{item.name}</Text>
+                return <Text key={item.id}>{item.name}</Text>
 
             })}
         </SafeAreaView>
 
     )
-
 };
