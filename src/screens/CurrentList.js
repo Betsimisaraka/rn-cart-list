@@ -1,25 +1,40 @@
-import React from 'react';
-import { View, Text, SafeAreaView, ScrollView, FlatList } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, SafeAreaView, ScrollView, FlatList, KeyboardAvoidingView } from 'react-native';
+import {v4 as uuid } from 'uuid';
 
 import nachos from '../data/nachos';
 
 import ListItem, { Separator } from '../components/ListItem';
+import AddItem from '../components/AddItem';
 
 export default () => {
+    const [list, setList] = useState(nachos)
     return (
-        <SafeAreaView>
-            <FlatList 
-              data={nachos}
-              renderItem={({ item, index }) => (
-                <ListItem 
-                    name={item.name}
-                    onFavoritePress={() => alert('todo: handle favorite')}
-                    isFavorite={index < 2}
+        <SafeAreaView style={{ flex: 1}}>
+            <KeyboardAvoidingView 
+                style={{ flex: 1}}
+                bahavior="padding"
+            >
+                <FlatList 
+                    data={list}
+                    renderItem={({ item, index }) => (
+                        <ListItem 
+                            name={item.name}
+                            onFavoritePress={() => alert('todo: handle favorite')}
+                            isFavorite={index < 2}
+                        />
+                    )}
+                    keyExtractor={(item) => item.id}
+                    ItemSeparatorComponent={() => <Separator />}
+                    ListHeaderComponent={() => (
+                        <AddItem 
+                            onSubmitEditing={({ nativeEvent: { text } }) => {
+                                setList([{ id: uuid(), name: text }, ...list])
+                            }}
+                        />
+                    )}
                 />
-              )}
-              keyExtractor={(item) => item.id}
-              ItemSeparatorComponent={() => <Separator />}
-            />
+            </KeyboardAvoidingView>
         </SafeAreaView>
     )
     // return (
