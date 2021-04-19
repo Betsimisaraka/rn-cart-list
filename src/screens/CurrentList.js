@@ -1,7 +1,7 @@
 import React from 'react';
-import { Text, SafeAreaView, FlatList, KeyboardAvoidingView, ActivityIndicator } from 'react-native';
+import { SectionList, Text, SafeAreaView, FlatList, KeyboardAvoidingView, ActivityIndicator } from 'react-native';
 
-import ListItem, { Separator } from '../components/ListItem';
+import ListItem, { SectionHeader, Separator } from '../components/ListItem';
 import AddItem from '../components/AddItem';
 import { useCurrentList } from '../util/ListManager';
 
@@ -11,6 +11,8 @@ export default ({ navigation }) => {
         loading,
         addItem,
         removeItem,
+        cart,
+        addToCart,
     } = useCurrentList();
 
     if(loading) {
@@ -21,20 +23,29 @@ export default ({ navigation }) => {
         )
     }
 
+    console.log('cart', cart);
+
     return (
         <SafeAreaView style={{ flex: 1}}>
             <KeyboardAvoidingView 
                 style={{ flex: 1}}
                 bahavior="padding"
             >
-                <FlatList 
-                    data={list}
+                <SectionList 
+                    // data={list}
+                    sections={[
+                        { title: "List", data: list },
+                        { title: "Cart", data: cart }
+                    ]}
+                    renderSectionHeader={({ section }) => (
+                        <SectionHeader title={section.title} />
+                    )}
                     renderItem={({ item, index }) => (
                         <ListItem 
                             name={item.name}
                             onFavoritePress={() => alert('todo: handle favorite')}
                             isFavorite={index < 2}
-                            onAddedSwipe={() => removeItem(item.id)}
+                            onAddedSwipe={() => addToCart(item)}
                             onDeleteSwipe={() => removeItem(item.id)}
                             onRowPress={() => {
                                 navigation.navigate('ItemDetails', { item })

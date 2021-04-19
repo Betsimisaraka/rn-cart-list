@@ -47,6 +47,14 @@ const styles = StyleSheet.create({
         backgroundColor: '#dd2c00',
         justifyContent: 'center',
         alignItems: 'flex-end',
+    },
+
+    sectionContainer: {
+        backgroundColor: '#d3d3d3',
+        paddingVertical: 10,
+    },
+    sectionText: {
+        fontWeight: '600',
     }
 });
 
@@ -76,6 +84,14 @@ const RightActions = (progress, dragX) => {
     return (
         <View style={styles.rightAction}>
             <Animated.Text style={[styles.actionText, { transform: [{ scale }]}]}>Delete</Animated.Text>
+        </View>
+    )
+}
+
+export const SectionHeader = ({ title }) => {
+    return (
+        <View style={[styles.container, styles.sectionContainer]}>
+            <Text style={styles.sectionText}>{title}</Text>
         </View>
     )
 }
