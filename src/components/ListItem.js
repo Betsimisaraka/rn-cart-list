@@ -99,7 +99,7 @@ const ListItem = ({ onRowPress, name, onFavoritePress, isFavorite, onAddedSwipe,
         <Swipeable
             renderLeftActions={onAddedSwipe && LeftActions}
             onSwipeableLeftOpen={onAddedSwipe}
-            renderRightActions={onDeleteSwipe && RightActions}
+            renderRightActions={RightActions}
             onSwipeableRightOpen={onDeleteSwipe}
         >
             <TouchableOpacity onPress={onRowPress}>
