@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 
 import CurrentList from '../screens/CurrentList';
+import ItemDetails from '../screens/ItemDetails';
 
 const Stack = createStackNavigator();
 
@@ -11,6 +12,7 @@ const CurrentListStack = () => {
         <NavigationContainer>
             <Stack.Navigator>
                 <Stack.Screen name="CurrentList" component={CurrentList} />
+                <Stack.Screen name="ItemDetails" component={ItemDetails} />
             </Stack.Navigator>
         </NavigationContainer>
     )
