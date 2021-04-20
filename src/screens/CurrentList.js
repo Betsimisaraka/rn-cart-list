@@ -1,5 +1,5 @@
 import React from 'react';
-import { SectionList, Text, SafeAreaView, FlatList, KeyboardAvoidingView, ActivityIndicator } from 'react-native';
+import { SectionList, Text, SafeAreaView, KeyboardAvoidingView } from 'react-native';
 
 import ListItem, { SectionHeader, Separator } from '../components/ListItem';
 import AddItem from '../components/AddItem';
@@ -13,6 +13,8 @@ export default ({ navigation }) => {
         removeItem,
         cart,
         addToCart,
+        favorite,
+        addToFavorite,
     } = useCurrentList();
 
     if(loading) {
@@ -23,7 +25,8 @@ export default ({ navigation }) => {
         )
     }
 
-    console.log('cart', cart);
+    console.log('Favorite', favorite);
+    console.log('list', list);
 
     return (
         <SafeAreaView style={{ flex: 1}}>
@@ -43,8 +46,8 @@ export default ({ navigation }) => {
                     renderItem={({ item, index }) => (
                         <ListItem 
                             name={item.name}
-                            onFavoritePress={() => alert('todo: handle favorite')}
-                            isFavorite={index < 2}
+                            onFavoritePress={() => addToFavorite(item)}
+                            isFavorite={favorite.find(items => items.id === item.id) ? true : false}
                             onAddedSwipe={() => addToCart(item)}
                             onDeleteSwipe={() => removeItem(item.id)}
                             onRowPress={() => {
